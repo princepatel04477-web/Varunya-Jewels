@@ -1,7 +1,3 @@
 'use client';
-import { motion } from 'motion/react';
-import { EASE } from '@/lib/motion';
-export function Reveal({children,className='',delay=0,direction='up'}:{children:React.ReactNode,className?:string;delay?:number;direction?:'up'|'left'}){
- const initial=direction==='left'?'inset(0 100% 0 0)':'inset(100% 0 0 0)';
- return <motion.div className={className} initial={{clipPath:initial}} whileInView={{clipPath:'inset(0 0 0 0)'}} viewport={{once:true,amount:.15}} transition={{duration:.9,delay,ease:EASE}}>{children}</motion.div>
-}
+import {useRef} from 'react';import {gsap,useGsap} from '@/lib/gsap';
+export function Reveal({children,className='',delay=0,direction='up'}:{children:React.ReactNode,className?:string;delay?:number;direction?:'up'|'left'}){const ref=useRef<HTMLDivElement>(null);useGsap(()=>{if(!ref.current)return;gsap.fromTo(ref.current,{clipPath:direction==='left'?'inset(0 100% 0 0)':'inset(100% 0 0 0)'},{clipPath:'inset(0 0 0 0)',duration:.9,delay,ease:'power4.out',scrollTrigger:{trigger:ref.current,start:'top 85%',once:true}})},[delay,direction],ref);return <div ref={ref} className={className}>{children}</div>}
