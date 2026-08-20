@@ -1,0 +1,3 @@
+import type {Metadata} from 'next';import '@fontsource/instrument-sans/400.css';import '@fontsource/instrument-sans/500.css';import '@fontsource/instrument-serif/400.css';import './globals.css';import {Header} from '@/components/layout/Header';import {Footer} from '@/components/layout/Footer';import {MotionProvider} from '@/components/providers/MotionProvider';
+export const metadata:Metadata={title:{default:'Varunyaa — Gold of First Light',template:'%s — Varunyaa'},description:'Sculptural 18k and 22k gold, made by hand in Surat.'};
+export default function Layout({children}:{children:React.ReactNode}){return <html lang="en"><body><MotionProvider><Header/><main>{children}</main><Footer/></MotionProvider></body></html>}
