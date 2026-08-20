@@ -1,0 +1,3 @@
+'use client';
+import {useRef} from 'react';import {gsap,useGsap} from '@/lib/gsap';
+export function Parallax({children,className='',strength=.15}:{children:React.ReactNode;className?:string;strength?:number}){const root=useRef<HTMLDivElement>(null);useGsap(()=>{if(!root.current)return;const child=root.current.firstElementChild; if(!child)return;gsap.set(child,{scale:1+Math.abs(strength),willChange:'transform'});gsap.fromTo(child,{yPercent:-strength*50},{yPercent:strength*50,ease:'none',scrollTrigger:{trigger:root.current,start:'top bottom',end:'bottom top',scrub:true,onLeave:()=>gsap.set(child,{willChange:'auto'}),onEnterBack:()=>gsap.set(child,{willChange:'transform'})}})},[strength],root);return <div ref={root} className={className}>{children}</div>}
